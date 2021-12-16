@@ -53,6 +53,31 @@ struct Wrapper
     }
 };
 
+void variadicHelper( int num, const char* name, double multi, Point& p )
+{
+    template<typename Type>
+    Wrapper wrapper(Type&& num&);
+    if (num > 0)
+    {
+        variadicHelper( const char* name, double multi, Point& p ); //recursive call
+        --num;
+    }
+}
+
+void variadicHelper( const char* name, double multi, Point& p )
+{
+    template<typename Type>
+    Wrapper wrapper(Type&& num&);
+    p.multiply(multi);
+    std::cout << name << " size: " << p.toString() << std::endl;
+}
+
+template<typename T, typename ...Args>
+void variadicHelper(T first, Args ... everythingElse)
+{
+    variadicHelper( everythingElse... ); //recursive call
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
