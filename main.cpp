@@ -47,34 +47,18 @@ private:
 template<typename Type>
 struct Wrapper
 {
-    Wrapper(Type&& t) : val(std::move(t)) 
+    Wrapper(Type&& t) : val(std::move(t)) //This is the Constructor Member Initializer List. 'val' is being initialized but you have not declared 'val' anywhere within this class...
     { 
         std::cout << "Wrapper(" << typeid(val).name() << ")" << std::endl; 
     }
+    //instruction 5 goes here.
 };
-
-void variadicHelper( int num, const char* name, double multi, Point& p )
-{
-    template<typename Type>
-    Wrapper wrapper(Type&& num&);
-    if (num > 0)
-    {
-        variadicHelper( const char* name, double multi, Point& p ); //recursive call
-        --num;
-    }
-}
-
-void variadicHelper( const char* name, double multi, Point& p )
-{
-    template<typename Type>
-    Wrapper wrapper(Type&& num&);
-    p.multiply(multi);
-    std::cout << name << " size: " << p.toString() << std::endl;
-}
 
 template<typename T, typename ...Args>
 void variadicHelper(T first, Args ... everythingElse)
 {
+    //Do something with 'first' here: Instruction 6
+    
     variadicHelper( everythingElse... ); //recursive call
 }
 
