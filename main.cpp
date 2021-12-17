@@ -59,14 +59,14 @@ struct Wrapper
     Type val;
 };
 
-template<typename T, typename ...Args>
-void variadicHelper(T first, Args ... everythingElse)
+template<typename T, typename ... Args>
+void variadicHelper(T first, Args&& ... everythingElse)
 {
     //Do something with 'first' here: Instruction 6
     Wrapper wrapper { first };
     wrapper.print();
 
-    variadicHelper( everythingElse... ); //recursive call
+    variadicHelper( std::forward<Args>(everythingElse) ); //recursive call
 }
 
 /*
