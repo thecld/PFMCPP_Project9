@@ -51,6 +51,7 @@ struct Wrapper
     { 
         std::cout << "Wrapper(" << typeid(val).name() << ")" << std::endl; 
     }
+
     void print()
     {
         std::cout << "Wrapper::print(" << val << ")\n";
@@ -60,22 +61,8 @@ struct Wrapper
 };
 
 template<>
-struct Wrapper<Point>
-{
+void Wrapper<Point>::print() { std::cout << "Wrapper::print(" << val.toString() << ")\n"; }
 
-    using Type = Point;
-
-    Wrapper(Type&& t) : val(std::move(t))
-    { 
-        std::cout << "Wrapper(" << typeid(val).name() << ")" << std::endl; 
-    }
-    void print()
-    {
-        std::cout << "Wrapper::print(" << val.toString() << ")\n"; //call Point's toString function
-    }
-
-    Type val; //in this case, this holds an instance of Point
-};
 
 template<typename T>
 void variadicHelper(T&& first)
