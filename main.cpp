@@ -47,11 +47,38 @@ private:
 template<typename Type>
 struct Wrapper
 {
-    Wrapper(Type&& t) : val(std::move(t)) 
+    Wrapper(Type&& t) : val(std::move(t))
     { 
         std::cout << "Wrapper(" << typeid(val).name() << ")" << std::endl; 
     }
+
+    void print()
+    {
+        std::cout << "Wrapper::print(" << val << ")\n";
+    }
+
+    Type val;
 };
+
+template<>
+void Wrapper<Point>::print() { std::cout << "Wrapper::print(" << val.toString() << ")\n"; }
+
+void variadicHelper();
+
+template<typename T, typename ... Args>
+void variadicHelper(T&& first, Args&& ... everythingElse)
+{
+    //Do something with 'first' here: Instruction 6
+    Wrapper wrapper { std::forward<T>(first) };
+    wrapper.print();
+
+    variadicHelper( std::forward<Args>(everythingElse) ... ); //recursive call
+}
+
+void variadicHelper()
+{
+    
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -71,5 +98,4 @@ int main()
 {
     variadicHelper( 3, std::string("burgers"), 2.5, Point{3.f, 0.14f} );
 }
-
 
