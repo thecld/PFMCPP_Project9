@@ -63,16 +63,7 @@ struct Wrapper
 template<>
 void Wrapper<Point>::print() { std::cout << "Wrapper::print(" << val.toString() << ")\n"; }
 
-
-template<typename T>
-void variadicHelper(T&& first)
-{
-    //Do something with 'first' here: Instruction 6
-    Wrapper wrapper { std::forward<T>(first) };
-    wrapper.print();
-
-    //variadicHelper( std::forward<Args>(everythingElse) ... ); //recursive call
-}
+void variadicHelper();
 
 template<typename T, typename ... Args>
 void variadicHelper(T&& first, Args&& ... everythingElse)
@@ -82,6 +73,11 @@ void variadicHelper(T&& first, Args&& ... everythingElse)
     wrapper.print();
 
     variadicHelper( std::forward<Args>(everythingElse) ... ); //recursive call
+}
+
+void variadicHelper()
+{
+    
 }
 
 /*
@@ -102,5 +98,4 @@ int main()
 {
     variadicHelper( 3, std::string("burgers"), 2.5, Point{3.f, 0.14f} );
 }
-
 
