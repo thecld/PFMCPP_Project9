@@ -71,10 +71,10 @@ struct Wrapper<Point>
     }
     void print()
     {
-        std::cout << "Wrapper::print(" << val.toString() << ")\n";
+        std::cout << "Wrapper::print(" << val.toString() << ")\n"; //call Point's toString function
     }
 
-    Type val;
+    Type val; //in this case, this holds an instance of Point
 };
 
 template<typename T>
